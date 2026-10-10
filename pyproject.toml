@@ -1,0 +1,30 @@
+[project]
+name = "annualyst"
+version = "0.1.0"
+description = "Analyst copilot for Indian annual reports: cited Q&A, XBRL-verified metrics, red flags."
+readme = "README.md"
+authors = [
+    { name = "Rohith Karning", email = "rohithkarning@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.11.16,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

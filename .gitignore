@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Environments & secrets
+.venv/
+.env
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Data (keep folder placeholders only)
+data/raw/*
+!data/raw/.gitkeep
+data/parsed/*
+!data/parsed/.gitkeep
+*.duckdb
+*.duckdb.wal
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
