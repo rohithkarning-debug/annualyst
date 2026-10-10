@@ -1,0 +1,7 @@
+[
+ {"audited": "Audited", "broadCastDate": "12-Apr-2024 21:04:39", "consolidated": "Non-Consolidated", "fromDate": "01-Apr-2023", "toDate": "31-Mar-2024", "period": "Annual", "symbol": "TCS", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INDAS_104550_1090534_12042024090438.xml"},
+ {"audited": "Audited", "broadCastDate": "12-Apr-2024 21:01:55", "consolidated": "Consolidated", "fromDate": "01-Apr-2023", "toDate": "31-Mar-2024", "period": "Annual", "symbol": "TCS", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INDAS_104549_1090527_12042024090154.xml"},
+ {"audited": "Audited", "broadCastDate": "13-Apr-2023 12:45:46", "consolidated": "Consolidated", "fromDate": "01-Apr-2022", "toDate": "31-Mar-2023", "period": "Annual", "symbol": "TCS", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INDAS_90701_817055_13042023124544.xml"},
+ {"audited": "Audited", "broadCastDate": "13-Apr-2023 12:43:28", "consolidated": "Non-Consolidated", "fromDate": "01-Apr-2022", "toDate": "31-Mar-2023", "period": "Annual", "symbol": "TCS", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INDAS_90700_817045_13042023124327.xml"},
+ {"audited": "Audited", "broadCastDate": "25-May-2018 17:55:24", "consolidated": "Consolidated", "fromDate": "01-Apr-2017", "toDate": "31-Mar-2018", "period": "Annual", "symbol": "TCS", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/-"}
+]

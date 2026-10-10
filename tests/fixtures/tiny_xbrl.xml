@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:in-bse-fin="http://www.bseindia.com/xbrl/fin/2020-03-31/in-bse-fin">
+  <xbrli:context id="OneD">
+    <xbrli:entity><xbrli:identifier scheme="http://www.nseindia.com">TCS</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2024-04-01</xbrli:startDate><xbrli:endDate>2025-03-31</xbrli:endDate></xbrli:period>
+  </xbrli:context>
+  <xbrli:unit id="INR"><xbrli:measure>iso4217:INR</xbrli:measure></xbrli:unit>
+  <in-bse-fin:RevenueFromOperations contextRef="OneD" unitRef="INR" decimals="-5">2553240000000</in-bse-fin:RevenueFromOperations>
+</xbrli:xbrl>

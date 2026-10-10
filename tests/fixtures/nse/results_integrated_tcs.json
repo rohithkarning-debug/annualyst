@@ -1,0 +1,6 @@
+{"size": 100, "page": -1, "totalCount": 4, "data": [
+ {"audited": "Audited", "broadcast_Date": "09-Apr-2026 23:42:16", "consolidated": "Consolidated", "qe_Date": "31-MAR-2026", "symbol": "TCS", "type": "Integrated Filing- Financials", "type_Sub": "Original", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1648408_09042026114218_WEB.xml"},
+ {"audited": "Audited", "broadcast_Date": "10-Jul-2025 18:40:11", "consolidated": "Consolidated", "qe_Date": "30-JUN-2025", "symbol": "TCS", "type": "Integrated Filing- Financials", "type_Sub": "Original", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1480382_10072025064011_WEB.xml"},
+ {"audited": "Audited", "broadcast_Date": "11-Apr-2025 07:41:38", "consolidated": "Consolidated", "qe_Date": "31-MAR-2025", "symbol": "TCS", "type": "Integrated Filing- Financials", "type_Sub": "Original", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1412101_11042025074137_WEB.xml"},
+ {"audited": "Audited", "broadcast_Date": "11-Apr-2025 00:10:07", "consolidated": "Standalone", "qe_Date": "31-MAR-2025", "symbol": "TCS", "type": "Integrated Filing- Financials", "type_Sub": "Original", "xbrl": "https://nsearchives.nseindia.com/corporate/xbrl/INTEGRATED_FILING_INDAS_1412100_11042025121002_WEB.xml"}
+]}
