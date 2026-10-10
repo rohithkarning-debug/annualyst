@@ -1,10 +1,17 @@
-.PHONY: help ingest extract eval test lint app
+.PHONY: help ingest validate extract eval test lint app
+
+ARGS = $(if $(SYMBOL),--symbol $(SYMBOL)) $(if $(FY),--fy $(FY))
 
 help:
-	@echo Targets: ingest SYMBOL=TCS FY=2025, extract, eval, test, lint, app
+	@echo Targets: ingest SYMBOL=TCS FY=2025, validate, extract, eval, test, lint, app
+	@echo ingest and validate run for all companies and years when SYMBOL and FY are omitted.
 
 ingest:
-	@echo ingest SYMBOL=$(SYMBOL) FY=$(FY): not implemented yet
+	uv run python -m annualyst.ingest.download $(ARGS)
+	uv run python -m annualyst.ingest.validate $(ARGS)
+
+validate:
+	uv run python -m annualyst.ingest.validate $(ARGS)
 
 extract:
 	@echo extract: not implemented yet

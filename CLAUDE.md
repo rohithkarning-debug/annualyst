@@ -29,7 +29,8 @@ annualyst/
 ├── pyproject.toml
 ├── Makefile                # make ingest / make extract / make eval / make app
 ├── data/
-│   ├── raw/{SYMBOL}/{FY}/  # annual_report.pdf, results.xml (XBRL)  — gitignored
+│   ├── raw/{SYMBOL}/FY{FY}/  # annual_report.pdf, results_consolidated.xml, results_standalone.xml (XBRL), source.json (provenance) — gitignored
+│   ├── raw/_api_cache/     # cached NSE API listings — gitignored
 │   ├── parsed/             # parsed text + tables as JSON, with page numbers — gitignored
 │   └── facts.duckdb        # extracted fact table — gitignored
 ├── benchmark/
@@ -51,7 +52,8 @@ annualyst/
 ```
 
 ## Commands
-- `make ingest SYMBOL=TCS FY=2025` — download and parse one report
+- `make ingest SYMBOL=TCS FY=2025` — download one report + XBRL from NSE, then validate (omit SYMBOL/FY for all)
+- `make validate` — check raw folders (PDF opens, page count, XBRL well-formed); also for manual downloads
 - `make extract` — run metric extraction on all parsed reports
 - `make eval` — run the full eval harness and print the scorecard
 - `make test` — pytest
@@ -68,6 +70,7 @@ annualyst/
 7. **Tests with every module.** New functions get pytest tests, using small fixture files in `tests/fixtures/`.
 8. **No secrets in code or git.** API keys come from `.env` (gitignored).
 9. **Respect source websites.** Rate-limit downloads (≥2 seconds between requests), set a proper User-Agent, and cache everything locally so we never re-download. If NSE/BSE blocks scripted downloads, stop and tell me — I'll download files manually.
+   - *Exception (decided 2026-10-10):* NSE drops connections from non-browser User-Agents, so the NSE downloader sends a browser User-Agent. Everything else in this rule still applies: ≥2 s between requests, full caching, and stop on 401/403 or dropped connections. BSE returns 403 to scripts and is not used.
 10. **Keep LLM costs visible.** Log tokens used per eval run in the results file.
 
 ## How to work with me
