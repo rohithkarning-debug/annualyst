@@ -163,25 +163,33 @@ class Selection:
     warnings: list[str] = field(default_factory=list)
 
 
+def _filed_at(entry: dict[str, Any], date_keys: tuple[str, ...]) -> datetime:
+    # Revisions on the integrated-filing API have broadcast_Date=None and carry their date in
+    # revised_Date, so take the latest of all date fields NSE gives.
+    return max(_parse_datetime(entry.get(k)) for k in date_keys)
+
+
 def _pick_latest(
-    matches: list[dict[str, Any]], url_key: str, date_key: str, what: str
+    matches: list[dict[str, Any]], url_key: str, date_keys: tuple[str, ...], what: str
 ) -> Selection | None:
     if not matches:
         return None
-    best = max(matches, key=lambda e: _parse_datetime(e.get(date_key)))
+    best = max(matches, key=lambda e: _filed_at(e, date_keys))
     warnings = []
     if len(matches) > 1:
         others = ", ".join(e[url_key] for e in matches if e is not best)
+        remark = f" NSE remark: {best['revision_Remark']}" if best.get("revision_Remark") else ""
         warnings.append(
-            f"{len(matches)} filings found for {what}; using the latest broadcast "
-            f"({best.get(date_key)}). Check whether these are revisions: {others}"
+            f"{len(matches)} filings found for {what}; using the latest "
+            f"({_filed_at(best, date_keys):%d-%b-%Y %H:%M}, {best.get('type_Sub', 'filing')}). "
+            f"Not used: {others}.{remark}"
         )
     return Selection(url=best[url_key], entry=best, warnings=warnings)
 
 
 def select_annual_report(entries: list[dict[str, Any]], fy: int) -> Selection | None:
     matches = [e for e in entries if e.get("fromYr") == str(fy - 1) and e.get("toYr") == str(fy)]
-    return _pick_latest(matches, "fileName", "broadcast_dttm", f"annual report FY{fy}")
+    return _pick_latest(matches, "fileName", ("broadcast_dttm",), f"annual report FY{fy}")
 
 
 def select_xbrl(entries: list[dict[str, Any]], fy: int, consolidated: bool) -> Selection | None:
@@ -203,7 +211,8 @@ def select_xbrl(entries: list[dict[str, Any]], fy: int, consolidated: bool) -> S
             and e.get("consolidated") == label
             and _has_xbrl(e)
         ]
-        return _pick_latest(matches, "xbrl", "broadcast_Date", what)
+        date_keys = ("broadcast_Date", "revised_Date", "creation_Date")
+        return _pick_latest(matches, "xbrl", date_keys, what)
     label = "Consolidated" if consolidated else "Non-Consolidated"
     matches = [
         e
@@ -214,7 +223,7 @@ def select_xbrl(entries: list[dict[str, Any]], fy: int, consolidated: bool) -> S
         and e.get("consolidated") == label
         and _has_xbrl(e)
     ]
-    return _pick_latest(matches, "xbrl", "broadCastDate", what)
+    return _pick_latest(matches, "xbrl", ("broadCastDate",), what)
 
 
 def _has_xbrl(entry: dict[str, Any]) -> bool:

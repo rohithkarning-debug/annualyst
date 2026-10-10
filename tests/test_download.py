@@ -120,7 +120,32 @@ def test_select_xbrl_duplicate_filings_pick_latest_and_warn() -> None:
     revised = dict(entries[2], broadcast_Date="20-Apr-2025 10:00:00", xbrl="https://x/revised.xml")
     sel = dl.select_xbrl([*entries, revised], 2025, consolidated=True)
     assert sel is not None and sel.url == "https://x/revised.xml"
-    assert len(sel.warnings) == 1 and "revisions" in sel.warnings[0]
+    assert len(sel.warnings) == 1 and entries[2]["xbrl"] in sel.warnings[0]
+
+
+def test_select_xbrl_prefers_revision_without_broadcast_date() -> None:
+    # Real shape from ASIANPAINT FY2025: the revision has broadcast_Date=None.
+    original = {
+        "type": "Integrated Filing- Financials",
+        "qe_Date": "31-MAR-2025",
+        "consolidated": "Standalone",
+        "type_Sub": "Original",
+        "broadcast_Date": "08-May-2025 20:01:42",
+        "revised_Date": None,
+        "xbrl": "https://x/original.xml",
+    }
+    revision = dict(
+        original,
+        type_Sub="Revision",
+        broadcast_Date=None,
+        creation_Date="14-Jun-2025 13:19:08",
+        revised_Date="14-JUN-2025 13:19:06",
+        revision_Remark="RPT disclosure revised; no change in values.",
+        xbrl="https://x/revision.xml",
+    )
+    sel = dl.select_xbrl([revision, original], 2025, consolidated=False)
+    assert sel is not None and sel.url == "https://x/revision.xml"
+    assert "Revision" in sel.warnings[0] and "no change in values" in sel.warnings[0]
 
 
 # --- rate limiting and HTTP ------------------------------------------------------
